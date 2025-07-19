@@ -11,10 +11,23 @@ function generarDominios() {
     for (let a of adj) {
       for (let n of noun) {
         for (let ext of extensions) {
-          let dominio = `${p}${a}${n}${ext}`;
+          // Hack opcional
+          let extSinPunto = ext.replace('.', '');
+          let dominio = '';
+
+          if (n.endsWith(extSinPunto)) {
+            let hackeado = n.slice(0, -extSinPunto.length);
+            dominio = `${p}${a}${hackeado}.${extSinPunto}`;
+          } else {
+            dominio = `${p}${a}${n}${ext}`;
+          }
+
           let item = document.createElement("li");
           item.textContent = dominio;
           container.appendChild(item);
+
+          // 🔎 Esto lo muestra en la consola del navegador:
+          console.log(dominio);
         }
       }
     }
